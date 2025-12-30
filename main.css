@@ -154,14 +154,14 @@ header {
 }
 .card .name {
   grid-area: name;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 1px;
   color: #6f6f6f;
   margin-left: 4px;
 }
 .card .date {
   grid-area: date;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 1px;
   color: #6f6f6f;
 }
