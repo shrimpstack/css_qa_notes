@@ -147,6 +147,12 @@ function open_card(card_data) {
     else if(cnt_type == "img") {
       new_el_to_el(cnt_el, "img", {src: content});
     }
+    else if(cnt_type == "links") {
+      new_el_to_el(cnt_el, "div.links", content.split("\n").map(link_str => {
+        let [text, href] = link_str.split(/\(|\)/).filter(v => v);
+        return new_el("a", {target: "_blank", href}, text);
+      }));
+    }
     else if(cnt_type == "hr") {
       new_el_to_el(cnt_el, "hr");
     }

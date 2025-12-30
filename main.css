@@ -262,6 +262,31 @@ header {
   font-size: 22px;
   color: #5d5d5d;
 }
+#card_content .links {
+  display: flex;
+  margin: -6px 0 24px;
+  gap: 12px;
+  padding: 0 16px;
+  flex-wrap: wrap;
+}
+#card_content .links a {
+  all: unset;
+  font-size: 15px;
+  color: #444;
+  cursor: pointer;
+  color: #6f6f6f;
+  border-bottom: 1px solid currentColor;
+  line-height: 17px;
+}
+#card_content .links a:before {
+    content: "";
+    background: url(./link.png) no-repeat center / contain;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    vertical-align: bottom;
+    margin-right: 1px;
+}
 #card_content .text {
   line-height: 1.75;
   color: #6f6f6f;
