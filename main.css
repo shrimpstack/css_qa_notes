@@ -1,0 +1,343 @@
+/* ================================ */
+/*  基本                            */
+/* ================================ */
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 32px;
+
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 16px;
+  width: 100%;
+  height: 100vh;
+  max-width: 1700px;
+  overflow: hidden;
+
+  background: #f2f2f1;
+  font-family: "Noto Sans TC", sans-serif;
+  color: #1f1f1f;
+}
+
+.mask_black {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 6000;
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  background: #0006;
+}
+.mask_black.hidden {
+  display: none;
+}
+
+/* ================================ */
+/*  頁尾                            */
+/* ================================ */
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  font-size: 14px;
+  color: #444;
+}
+footer a {
+  all: unset;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+/* ================================ */
+/*  頁首                            */
+/* ================================ */
+header {
+  height: 48px;
+}
+#search_area {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+
+  margin: 0 auto;
+  outline: none;
+  border-radius: 6px;
+  border: 1px solid #d1d1d1;
+  height: 100%;
+  max-width: 700px;
+
+  font-size: 14px;
+  background: linear-gradient(#fff, #f7f7f7);
+  box-shadow: inset 0 1px 0 #fffc, 0 6px 14px #0001;
+}
+#search_area hr {
+  all: unset;
+  width: 1px;
+  background: linear-gradient(0deg, #0000 2px, #d1d1d1, #0000 calc(100% - 2px));
+}
+#search_type {
+  all: unset;
+  min-width: 120px;
+  line-height: 48px;
+  padding: 0 16px;
+  background: url(./arrow_down.png) no-repeat right / 32px;
+}
+#search_keyword {
+  all: unset;
+  padding: 0 16px;
+}
+
+/* ================================ */
+/*  卡片                            */
+/* ================================ */
+#cards {
+  display: grid;
+  align-content: start;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  height: 100%;
+  min-height: 0px;
+  overflow: auto;
+}
+#cards:empty:after, #cards.not_found:after {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 18px;
+  margin-top: 60px;
+  color: #888;
+}
+#cards.not_found:after { content: "未找到符合的結果"; }
+#cards:empty:after { content: "讀取中..."; }
+.card {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto auto 1fr auto auto;
+  grid-template-areas:
+    "line type name date date"
+    "line title title title title"
+    "line img img img img"
+    "line tags tags tags id";
+  gap: 4px;
+
+  border-radius: 6px;
+  padding: 16px;
+  padding-left: 20px;
+  border: 1px solid #d1d1d1;
+
+  background: linear-gradient(180deg, #ffffff, #f6f6f6);
+  box-shadow: inset 0 1px 0 #fffc, 0 6px 14px #0001;
+  cursor: pointer;
+}
+.card::before {
+  content: "";
+  grid-area: line;
+  margin-left: -10px;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(0deg, #0000 2px, #d1d1d1, #0000 calc(100% - 2px));
+}
+.card.hidden {
+  display: none;
+}
+.card .type {
+  grid-area: type;
+  border-radius: 4px;
+  border: 1px solid #d1d1d1;
+  padding: 2px 6px;
+
+  font-size: 12px;
+  letter-spacing: 1px;
+  background: #f8f8f8;
+  color: #6f6f6f;
+}
+.card .name {
+  grid-area: name;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #6f6f6f;
+  margin-left: 4px;
+}
+.card .date {
+  grid-area: date;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #6f6f6f;
+}
+.card .title {
+  grid-area: title;
+  margin: 6px 0;
+  font-size: 15px;
+  font-weight: bold;
+}
+.card img {
+  grid-area: img;
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 4px;
+  filter: grayscale(30%) contrast(.9);
+  margin-bottom: 8px;
+}
+.card .tags {
+  grid-area: tags;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.card .tag {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #6f6f6f;
+  background: #fff;
+  padding: 0 4px 1px;
+  border-radius: 4px;
+}
+.card .id {
+  grid-area: id;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #6f6f6f;
+  text-align: right;
+}
+.card .id:before {
+  content: "#";
+}
+
+/* ================================ */
+/*  解答卡片                        */
+/* ================================ */
+#card_content .bg {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 8px;
+
+  margin: auto;
+  border-radius: 6px;
+  border: 1px solid #d1d1d1;
+  padding: 32px 24px 24px;
+  box-sizing: border-box;
+  width: calc(100% - 32px);
+  max-width: 720px;
+  max-height: 80vh;
+
+  background: linear-gradient(#ffffff, #f4f4f4);
+  box-shadow: 0 30px 80px #0004;
+  overflow-y: auto;
+}
+#card_content .close_btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  cursor: pointer;
+}
+#card_content .title {
+  font-size: 22px;
+  font-weight: bold;
+}
+#card_content .content {
+  min-height: 0px;
+  height: 100%;
+  overflow: auto;
+}
+#card_content .content hr {
+  all: unset;
+  background: linear-gradient(90deg, #0000, #d1d1d1 10%, #d1d1d1 90%, #0000);
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin: 14px 0;
+}
+#card_content .content h3 {
+  all: unset;
+  display: block;
+  margin: 24px 16px -6px;
+  font-weight: bold;
+  font-size: 22px;
+  color: #5d5d5d;
+}
+#card_content .text {
+  line-height: 1.75;
+  color: #6f6f6f;
+  margin: 14px 0;
+}
+#card_content img {
+  margin: 14px auto;
+  display: block;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-shadow: 4px 6px 8px -2px #0004;
+  box-sizing: border-box;
+  max-width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+}
+#card_content .code_holder {
+  position: relative;
+  margin: -6px 0 24px;
+  border-radius: 4px;
+  border: 1px solid #d1d1d1;
+  padding: 16px 18px;
+  max-height: 600px;
+  overflow: auto;
+  background: linear-gradient(#d1d1d1, #d1d1d1) no-repeat left / 3px,
+    linear-gradient(#f3f3f3, #ededed);
+}
+#card_content .code_holder .copy_btn {
+  all: unset;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 36px;
+  height: 36px;
+  background: url(./copy_btn.png);
+  cursor: pointer;
+  transition: opacity .6s;
+}
+#card_content .code_holder .copy_btn:active {
+  transition: none;
+  opacity: .5;
+}
+#card_content .code_holder .cnt {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre;
+  color: #2a2a2a;
+}
+#card_content .bottom {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+#card_content .bottom:empty {
+  display: none;
+}
+#card_content .bottom a {
+  all: unset;
+  font-size: 15px;
+  color: #444;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+/* ================================ */
+/*  複製用                          */
+/* ================================ */
+#copy_el {
+  all: unset;
+  opacity: 0;
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}

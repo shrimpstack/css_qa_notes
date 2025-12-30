@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <title>噗浪CSS問題集中</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="./main.css"/>
+    <script src="./universal.js"></script>
+    <script src="./post.js"></script>
+    <script src="./main.js"></script>
+  </head>
+  <body>
+    <header id="header">
+      <div id="search_area">
+        <select id="search_type"></select>
+        <hr/>
+        <input id="search_keyword" placeholder="搜尋問題、解答、偷偷說ID…"/>
+      </div>
+    </header>
+    <main id="cards"></main>
+    <footer id="footer">
+      <div>最後更新時間：--</div>
+    </footer>
+    <div class="mask_black hidden" id="card_content">
+      <div class="bg">
+        <div class="close_btn">✕</div>
+        <div class="title"></div>
+        <div class="content"></div>
+        <div class="bottom"></div>
+      </div>
+    </div>
+    <textarea id="copy_el"></textarea>
+  </body>
+</html>
