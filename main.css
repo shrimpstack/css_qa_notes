@@ -308,9 +308,7 @@ header {
   margin: -6px 0 24px;
   border-radius: 4px;
   border: 1px solid #d1d1d1;
-  padding: 16px 18px;
-  max-height: 600px;
-  overflow: auto;
+  overflow: hidden;
   background: linear-gradient(#d1d1d1, #d1d1d1) no-repeat left / 3px,
     linear-gradient(#f3f3f3, #ededed);
 }
@@ -335,6 +333,8 @@ header {
   line-height: 1.6;
   white-space: pre;
   color: #2a2a2a;
+  padding: 16px 18px;
+  overflow: auto;
 }
 #card_content .bottom {
   display: flex;
