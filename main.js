@@ -8,7 +8,7 @@ window.addEventListener("load", async () => {
     card_data.card_el = card_el;
   });
   update_search_type();
-  if(location.hash) {
+  if(/^\#\d+$/.test(location.hash)) {
     let find_result = find(`#cards .card[cid="${location.hash}"]`);
     if(find_result) find_result.click();
   }
@@ -80,7 +80,7 @@ function search_check_card(card_data, search_data) {
       has_keyword += !!card_data.title.toLowerCase().includes(keyword);
       has_keyword += !!card_data.name.toLowerCase().includes(keyword);
       card_data.content.forEach(([cnt_type, cnt]) => {
-        if(!["text", "code"].includes(cnt_type)) return;
+        if(!["text", "code", "links"].includes(cnt_type)) return;
         has_keyword += !!cnt.toLowerCase().includes(keyword);
       });
       if(has_keyword) break;
