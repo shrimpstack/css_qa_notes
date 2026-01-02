@@ -38,6 +38,7 @@ function update_search_type() {
   search_type.innerHTML = "";
   let type_list = [];
   [...cards.children].forEach(card_el => {
+    if(card_el.data.type == "混合") return;
     if(!type_list.includes(card_el.data.type)) type_list.push(card_el.data.type);
   });
   new_el_to_el(search_type, "option", {value: ""}, "全部");
@@ -67,7 +68,8 @@ function search_check_card(card_data, search_data) {
   if(id) return card_data.id == id;
   let result = true;
   if(type) {
-    result = result && (card_data.type == type);
+    if(card_data.type == "混合") result = result && card_data.tags.includes(type);
+    else result = result && (card_data.type == type);
   }
   if(tags.length) {
     let has_tag = 0;
