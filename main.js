@@ -8,11 +8,31 @@ window.addEventListener("load", async () => {
     card_data.card_el = card_el;
   });
   update_search_type();
+  onload_auto_search();
+});
+
+function onload_auto_search() {
   if(/^\#\d+$/.test(location.hash)) {
     let find_result = find(`#cards .card[cid="${location.hash}"]`);
     if(find_result) find_result.click();
   }
-});
+  else if(location.search) {
+    decodeURI(location.search).replace(/^\?/, "").split("&").forEach(str => {
+      let key = str.replace(/=.*$/, "");
+      let val = str.replace(/^[^=]*=/, "");
+      if(key == "t") {
+        search_type.value = val;
+        search_type.value = search_type.value || "";
+      }
+      if(key == "s") search_keyword.value = val;
+    });
+    search();
+    if(cards.matches(".not_found")) {
+      search_keyword.value = "";
+      search();
+    }
+  }
+}
 
 function update_footer(basic_info) {
   if(!basic_info) return;
@@ -91,7 +111,22 @@ function search_check_card(card_data, search_data) {
   }
   return result;
 }
+function search_update_href() {
+  if(!search_type.value && !search_keyword.value) {
+    history.replaceState(null, "", location.href.replace(/\?.*|\#.*/g, ""));
+    return;
+  }
+  if(/^\#\d+$/.test(search_keyword.value)) {
+    history.replaceState(null, "", location.href.replace(/\?.*|\#.*/g, "") + search_keyword.value);
+    return;
+  }
+  let search_arr = [];
+  if(search_type.value) search_arr.push("t=" + search_type.value);
+  if(search_keyword.value) search_arr.push("s=" + search_keyword.value);
+  history.replaceState(null, "", location.href.replace(/\?.*|\#.*/g, "") + "?" + search_arr.join("&"));
+}
 function search() {
+  search_update_href();
   let search_data = get_search_data();
   [...cards.children].forEach(card_el => {
     let result = search_check_card(card_el.data, search_data);
