@@ -254,6 +254,9 @@ header {
   height: 2px;
   margin: 14px 0;
 }
+#card_content .content img + hr {
+  margin-top: 36px;
+}
 #card_content .content h3 {
   all: unset;
   display: block;
