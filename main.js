@@ -86,7 +86,6 @@ function search_check_card(card_data, search_data) {
   if(!search_data) return true;
   let {type, tags, keyword_arr, id} = search_data;
   if(id) return card_data.id == id;
-  if(card_data.type == "補充") return false;
   let result = true;
   if(type) {
     if(card_data.type == "混合") result = result && card_data.tags.includes(type);
