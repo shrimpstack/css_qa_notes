@@ -13,7 +13,7 @@
       <div id="search_area">
         <select id="search_type"></select>
         <hr/>
-        <input id="search_keyword" placeholder="搜尋問題、解答、偷偷說ID　[]可用標籤搜尋　#可用id搜尋"/>
+        <input id="search_keyword" placeholder="搜尋問題、解答、偷偷說ID　[]可用標籤搜尋　#可用問題ID搜尋"/>
       </div>
     </header>
     <main id="cards"></main>
@@ -29,5 +29,17 @@
       </div>
     </div>
     <textarea id="copy_el"></textarea>
+    <div class="mask_black hidden" id="anon_room_ask">
+      <div class="bg">
+        <div class="close_btn">✕</div>
+        <h3>小房間匿名私問</h3>
+        <div>如果是完整的河道語法想要詳細詢問，不想貼出語法在原噗的話，可以用偷偷說小房間詢問</div>
+        <div>可以給帳號噗主直接幫你去河道看問題，噗主保持匿名不會私訊過去，還是需要給小房間</div>
+        <input id="anon_name" placeholder="你是原噗的誰，或者怎麼稱呼你"/>
+        <input id="anon_room_url" placeholder="小房間網址"/>
+        <input id="anon_room_title" placeholder="主要問題"/>
+        <button id="anon_room_submit" onclick="do_anon_room_submit()">送出</button>
+      </div>
+    </div>
   </body>
 </html>

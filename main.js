@@ -42,6 +42,8 @@ function update_footer(basic_info) {
     new_el_to_el(footer, "a", {target: "_blank", href}, text);
   });
   let date = timestamp_to_date_str(basic_info.update_timestamp);
+  let anon_room_btn = new_el_to_el(footer, "a", "偷偷說小房間問");
+  anon_room_btn.addEventListener("click", open_anon_room_card);
   new_el_to_el(footer, "div", `最後更新時間：${date}`);
 }
 
@@ -215,6 +217,41 @@ window.addEventListener("load", () => {
   });
   find(card_content, ".close_btn").addEventListener("click", () => {
     card_content.classList.add("hidden");
+  });
+});
+
+function do_anon_room_submit() {
+  if(!anon_name.value) anon_name.value = "未填寫";
+  if(!anon_room_title.value) anon_room_title.value = "未填寫";
+  if(!anon_room_url.value) {
+    alert("小房間網址必填");
+    return;
+  }
+  let data = {
+    timestamp: new Date().getTime(),
+    anon_name: anon_name.value,
+    anon_room_title: anon_room_title.value,
+    anon_room_url: anon_room_url.value,
+  };
+  anon_room_ask.classList.add("hidden");
+  post("add_anon_room", data).then(res => {
+    if(res.success) alert(`標題「${data.anon_room_title}」送出成功`);
+  }).catch(err => {
+    alert(`標題「${data.anon_room_title}」送出失敗`);
+  });
+}
+function open_anon_room_card() {
+  anon_name.value = "";
+  anon_room_title.value = "";
+  anon_room_url.value = "";
+  anon_room_ask.classList.remove("hidden");
+}
+window.addEventListener("load", () => {
+  anon_room_ask.addEventListener("click", ({target}) => {
+    if(target == anon_room_ask) anon_room_ask.classList.add("hidden");
+  });
+  find(anon_room_ask, ".close_btn").addEventListener("click", () => {
+    anon_room_ask.classList.add("hidden");
   });
 });
 
