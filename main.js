@@ -58,7 +58,7 @@ function update_search_type() {
   search_type.innerHTML = "";
   let type_list = [];
   [...cards.children].forEach(card_el => {
-    if(card_el.data.type == "混合") return;
+    if(["混合", "補充"].includes(card_el.data.type)) return;
     if(!type_list.includes(card_el.data.type)) type_list.push(card_el.data.type);
   });
   new_el_to_el(search_type, "option", {value: ""}, "全部");
@@ -86,6 +86,7 @@ function search_check_card(card_data, search_data) {
   if(!search_data) return true;
   let {type, tags, keyword_arr, id} = search_data;
   if(id) return card_data.id == id;
+  if(card_data.type == "補充") return false;
   let result = true;
   if(type) {
     if(card_data.type == "混合") result = result && card_data.tags.includes(type);
@@ -145,14 +146,27 @@ function create_card(card_data) {
     new_el("div.date", card_data.timestamp ? timestamp_to_date_str(card_data.timestamp) : "--"),
     new_el("div.title", card_data.title || "未命名的問題"),
     new_el("img", {src: card_data.img}),
-    new_el("div.tags",
-      card_data.tags.filter(v => v).map(tag_str => new_el("div.tag", String(tag_str) ))
-    ),
+    create_card_tags_el(card_data.tags),
     new_el("div.id", card_data.id || "--"),
   ]);
-  card_el.addEventListener("click", () => open_card(card_data));
+  card_el.addEventListener("click", ({target}) => {
+    if(target.matches(".tag")) return;
+    open_card(card_data);
+  });
   Object.defineProperty(card_el, "data", { get: () => card_data });
   return card_el;
+}
+function create_card_tags_el(tags) {
+  let tags_el = new_el("div.tags");
+  tags.filter(v => v).forEach(tag_str => {
+    tag_str = String(tag_str);
+    let tag_el = new_el_to_el(tags_el, "div.tag", tag_str);
+    tag_el.addEventListener("click", () => {
+      search_keyword.value += `[${tag_str}]`;
+      search();
+    });
+  });
+  return tags_el;
 }
 
 function open_card(card_data) {
